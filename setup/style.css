@@ -1,0 +1,163 @@
+body {
+  background-image: url(../img/gingfinal.png);
+  background-attachment: fixed;
+  margin: 0 auto;
+  font-family: Helvetica, Georgia, Verdana, sans-serif;
+}
+
+.postit {
+  width: 428px;
+  height: 454px;
+  background-image: url(../img/postit.png);
+  float: left;
+  margin-left: -60px;
+  margin-top: -65px;
+  margin-right: 20px;
+}
+
+.postittext {
+ -webkit-transform: rotate(-3.25deg);
+ -moz-transform: rotate(-3.25deg);
+  transform: rotate(-3.25deg);
+  padding: 60px 35px 50px 50px;
+  max-height: 280px; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 100%;
+}
+
+.content {
+  position: relative;
+  top: 0;
+  left: 0;
+  margin: 50px 45px 35px 45px;
+  padding: 15px;
+  background-color: #f9ee6f;
+  z-index: 1;
+}
+
+.lowercontent {
+	clear: both;
+	width: 100%;
+	padding-bottom: 50px;
+}
+
+.uppercontent {
+  padding-right: 20px;
+}
+
+.news {
+  font-family: Helvetica, Verdana, sans-serif;
+}
+
+.navcontainer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	padding: 0;
+	z-index: 20;
+}
+
+.nav {
+  background-color: #f9ee6f;
+  margin-left:auto;
+  margin-right:auto;
+	width:95%;
+  font-size: 85%;
+	padding: 0;
+}
+
+.navhead {
+  width: 100%;
+  margin-left:auto;
+  margin-right:auto;
+  border-style: groove none;
+  border-color: #996600;
+  border-width: medium;
+	padding: 0;
+}
+
+.navcontent {
+  width: 100%;
+  margin-left:auto;
+  margin-right:auto;
+	padding: 0;
+}
+
+hr {
+	border: 0;
+	width: 80%;
+	color: #663300;
+	background-color: #663300;
+	height: 3px;
+}
+
+p,h1,h2,h3,h4,h5,h6,li {
+ margin-bottom: 0;
+ margin-top: 0;
+}
+
+p.date { font-size: 70%; }
+
+.center { text-align: center; }
+
+ul {
+  position: relative;
+  left: 20px;
+}
+
+ul.center {
+  position: relative;
+  left: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+
+table.navigation { width: 100%; }
+
+table.navigation,tr.navigation,th.navigation,td.navigation {
+	border-collapse: collapse;
+	border: 0;
+	padding: 0;
+	margin: auto;
+	text-align: center;
+}
+
+ul.plain { list-style-type: none; }
+
+a:link { color: #996600; }
+a:visited { color: #996600; }
+a:hover { color: #330000; }
+a:active { color: #cc6600; }
+
+.iedoom {
+	margin: 50px;
+	background-color: #ff6666;
+	border: 2px solid #ff0000;
+	text-align: justify;
+}
+
+.iedoom a:link { 
+	color: #000;
+	text-decoration: underline;
+}
+.iedoom a:visited { 
+	color: #000;
+	text-decoration: underline;
+}
+.iedoom a:hover { 
+	color: #000;
+	text-decoration: underline;
+}
+.iedoom a:active { 
+	color: #000;
+	text-decoration: underline;
+}
+.iedoom table {
+	text-align: center;
+	margin: auto;
+}
+
+.iedoom img {
+	border: 0;
+}
