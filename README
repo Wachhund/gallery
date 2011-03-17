@@ -1,10 +1,18 @@
 This is a hand crafted gallery system for the display and sale of images, Relying on the following:
 
-* PHP
+* PHP >= 5.2
 * MySQL
 * Amazon AWS S3
 * Amazon AWS SDK for PHP
 * Paypal
+* Markdown for PHP
+* SmartyPants for PHP
+* Jumploader
+* SimpleXML
+* JSON
+* PCRE
+* SPL
+* cURL with HTTPS support
 
 CHANGELOG
 
@@ -17,6 +25,11 @@ Intention is to develop backend, then frontend, then facility for custom install
 
 Developed by Samuel Littley ©2011
 samuel.littley@scoutmail.org.uk
+
+Amazon AWS SDK, Markdown for PHP, Smartypants for PHP, Jumploader are 
+all provided and bundled with this package. You may however wish to 
+update them.
+
 Released under a GNU General Public License (See Bottom For Content of License)
 
 ### GPL ###

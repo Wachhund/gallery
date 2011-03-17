@@ -5,9 +5,9 @@ error_reporting(0);
 // Editable Section Begins Here //
 
 // MySQL Settings provided by your hosting company //
-$host = 'toastwaffle.db';
+$host = 'localhost';
 $user = 'webuser';
-$pass = 'xs37re!g64';
+$pass = 'qwertyuiop';
 
 // MySQL Options for you to set //
 define("GALLERYDB",'gallery',true); // Name of database to use
@@ -24,16 +24,16 @@ define("SMARTYPANTSLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/smartypan
 define("FUNCTIONSLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/functions.php', true); // Location of functions.php file
 
 // Amazon AWS settings
-define("AWSPUBLICKEY", 'AKIAI33M2SK4VALRH7LA', true);
-define("AWSPRIVATEKEY", 'O9Hc8W3FSz09E1sx9rboSJjbEx6DQKF5Bm5xPI4M', true);
-define("BUCKET", 'toastwafflegallery', true);
+define("AWSPUBLICKEY", 'azqwsxdecfrvgtbnuhjmikolp', true);
+define("AWSPRIVATEKEY", 'azwsxdcrfvtgybuhnjimkopl', true);
+define("BUCKET", 'mybucket', true);
 
 // Jumploader settings
 define("UPLOADDIR", $_SERVER['DOCUMENT_ROOT'].'gallery/uploads/', true); // Location of folder to temporarily upload files to. Must be writable by server
 define("UPLOADSTAGEDIR", $_SERVER['DOCUMENT_ROOT'].'gallery/uploads/stage/', true); // Location of folder to temporarily upload file partitions to. Must be writable by server
 
 // Paypal settings
-define("BUSINESSID", 'FDF3CBD6VMYCC', true); // Paypal business id, for creation of button
+define("BUSINESSID", 'ESXRD56VYUI8', true); // Paypal business id, for creation of button
 define("PAYPALITEMS", array( 'Print &amp; Mount' , 'Print' , 'Photo CD' , 'Photo Download' ), true); // Array of items for sale through Paypal
 define("PAYPALPRICES", array( '5.00' , '3.00' , '4.50' , '4.00' ), true); // Array of prices of items for sale through Paypal
 define("PAYPALSHIPPING", '0.50', true); // Shipping per item sold through Paypal
