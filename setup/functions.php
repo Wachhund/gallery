@@ -2,7 +2,8 @@
 
 function displaycontent($slug) {
   global $cxn;
-  $qry = 'SELECT * FROM `'.PERSONALDB.'`.`'.CONTENTTBL.'` WHERE `slug` = \''.mysql_real_escape_string($slug).'\'';
+  $qry = 'SELECT * FROM `'.GALLERYDB.'`.`'.CONTENTTBL.'` WHERE `slug` = 
+\''.mysql_real_escape_string($slug).'\'';
   $result = mysql_query($qry,$cxn);
   if ((!($result)) || (mysql_num_rows($result) != 1)) {
     die('Error retrieving content'.mysql_error($cxn));

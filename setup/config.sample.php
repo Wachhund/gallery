@@ -14,7 +14,7 @@ define("GALLERYDB",'gallery',true); // Name of database to use
 define("IMGSTBL",'photos',true); // Name of table for images
 define("GALLERYTBL",'galleries',true); // Name of table for galleries
 define("DOWNLOADTBL",'download',true); // Name of table for image downloads
-// amazon, jar, markdown, smartypants locations, aws keys
+define("CONTENTTBL",'content',true); // Name of table for site content
 
 // Installation Location Settings
 define("AMAZONLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/amazon/sdk.class.php', true); // Location of Amazon AWS SDK class file
