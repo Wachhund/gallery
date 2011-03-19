@@ -11,4 +11,6 @@ $returnstr = "";
 $returnstr .= $_GET['1'];
 $returnstr .= $_GET['2'];
 
+return $returnstr;
+
 ?>

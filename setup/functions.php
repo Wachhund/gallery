@@ -6,6 +6,7 @@ if (!($cxn)) {
 }
 
 function displaycontent($slug) {
+  error_reporting(E_ALL);
   global $cxn;
   $qry = 'SELECT * FROM `'.GALLERYDB.'`.`'.CONTENTTBL.'` WHERE `slug` = 
 \''.mysql_real_escape_string($slug).'\'';
@@ -16,21 +17,21 @@ function displaycontent($slug) {
   $row = mysql_fetch_assoc($result);
   $text = $row['content'];
   $matches = array();
-  preg_match_all("/\[\[![A-Za-z0-9,]*\]\]",$text,$matches);
-  foreach($matches as $match) {
-  	$args = explode(",",substr($match,3,-2))
-  	$includepath = TEMPLATESFOLDER.$args[0].".php?";
-  	for ($i=1;$i<=len($args);$i++) {
-  		$includepath .= $i."=".$args[$i];
-  		if ($i != len($args) {
-  			$includepath .= "&";
+  $pregresult = preg_match_all("/\[\[![A-Za-z0-9,]*\]\]/",$text,$matches);
+  if (($pregresult != 0) && ($pregresult != FALSE)) {
+		foreach($matches as $match) {
+			$_GET = array();
+			$args = explode(",",substr($match[0],3,-2));
+			$includepath = TEMPLATESLOCATION.$args[0].".php";
+			if (count($args) > 1) {
+				for ($i=1;$i<=(count($args)-1);$i++) {
+					$_GET[$i] = $args[$i];
+				}
 			}
+			include($includepath);
+			$text = str_replace($match[0],"<div>".$returnstr."</div>",$text);
 		}
-		$include = include $includepath;
-		if ($include != FALSE) {
-			str_replace($match,"<div>".$include."</div>",$text);
-		}
-  }
+	}
   echo(smartypants(markdown(stripslashes($text))));
 }
 
@@ -107,14 +108,14 @@ $code = <<<text
 <p>What would you like to buy?</p>
 <select name="os0">\n
 text;
-for ($PAYPALITEMS as $key => $value) {
+foreach ($PAYPALITEMS as $key => $value) {
 	$code .= "<option value=\"".$value."\">".$value." £".$PAYPALPRICES[$key]."</option>\n";
 }
 $code .= <<<text
 </select>
 <input type="hidden" name="currency_code" value="GBP" />\n
 text;
-for ($PAYPALITEMS as $key => $value) {
+foreach ($PAYPALITEMS as $key => $value) {
 	$code .= "<input type=\"hidden\" name=\"option_select".$key."\" value=\"".$value."\" />\n";
 	$code .= "<input type=\"hidden\" name=\"option_amount".$key."\" value=\"".$PAYPALPRICES[$key]."\" />\n";
 }

@@ -1,4 +1,6 @@
-<?php include("setup/config.php"); ?>
+<?php
+include("setup/config.php");
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +12,7 @@ charset=ISO-8859-1">
 </head>
 <body>
 <div class="content">
-<?php outputcontent("home-page"); ?>
+<?php displaycontent("home-page"); ?>
 </div>
 </body>
 </html>
