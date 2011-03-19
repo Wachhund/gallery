@@ -1,5 +1,10 @@
 <?php
 
+$cxn = mysql_connect($host,$user,$pass);
+if (!($cxn)) {
+  die('Could not connect to MySQL Database'.mysql_error($cxn));
+}
+
 function displaycontent($slug) {
   global $cxn;
   $qry = 'SELECT * FROM `'.GALLERYDB.'`.`'.CONTENTTBL.'` WHERE `slug` = 
@@ -68,6 +73,8 @@ function ie_box() {
 function displaybutton($photoname,$photoid) {
 $business = BUSINESSID;
 $shipping = PAYPALSHIPPING;
+global $PAYPALITEMS;
+global $PAYPALPRICES;
 $code = <<<text
 <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_cart" />
@@ -83,16 +90,16 @@ $code = <<<text
 <p>What would you like to buy?</p>
 <select name="os0">\n
 text;
-for (PAYPALITEMS as $key => $value) {
-	$code .= "<option value=\"".$value."\">".$value." £".PAYPALPRICES[$key]."</option>\n";
+for ($PAYPALITEMS as $key => $value) {
+	$code .= "<option value=\"".$value."\">".$value." £".$PAYPALPRICES[$key]."</option>\n";
 }
 $code .= <<<text
 </select>
 <input type="hidden" name="currency_code" value="GBP" />\n
 text;
-for (PAYPALITEMS as $key => $value) {
+for ($PAYPALITEMS as $key => $value) {
 	$code .= "<input type=\"hidden\" name=\"option_select".$key."\" value=\"".$value."\" />\n";
-	$code .= "<input type=\"hidden\" name=\"option_amount".$key."\" value=\"".PAYPALPRICES[$key]."\" />\n";
+	$code .= "<input type=\"hidden\" name=\"option_amount".$key."\" value=\"".$PAYPALPRICES[$key]."\" />\n";
 }
 $code .= <<<text
 <input type="hidden" name="option_index" value="0" />

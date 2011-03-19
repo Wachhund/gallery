@@ -15,6 +15,7 @@ define("IMGSTBL",'photos',true); // Name of table for images
 define("GALLERYTBL",'galleries',true); // Name of table for galleries
 define("DOWNLOADTBL",'download',true); // Name of table for image downloads
 define("CONTENTTBL",'content',true); // Name of table for site content
+define("USERSTBL",'users',true); // Name of table for site admin system users
 
 // Installation Location Settings
 define("AMAZONLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/amazon/sdk.class.php', true); // Location of Amazon AWS SDK class file
@@ -22,6 +23,8 @@ define("JUMPLOADERLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/jar/', tru
 define("MARKDOWNLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/markdown.php', true); // Location of markdown class file
 define("SMARTYPANTSLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/smartypants.php', true); // Location of markdown class file
 define("FUNCTIONSLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/functions.php', true); // Location of functions.php file
+define("STYLESHEETLOCATION", '../setup/style/style.css', true); // Location of style.css file
+define("FAVICONLOCATION", '../setup/style/favicon.ico', true); // Location of favicon.ico file
 
 // Amazon AWS settings
 define("AWSPUBLICKEY", 'azqwsxdecfrvgtbnuhjmikolp', true);
@@ -34,8 +37,8 @@ define("UPLOADSTAGEDIR", $_SERVER['DOCUMENT_ROOT'].'gallery/uploads/stage/', tru
 
 // Paypal settings
 define("BUSINESSID", 'ESXRD56VYUI8', true); // Paypal business id, for creation of button
-define("PAYPALITEMS", array( 'Print &amp; Mount' , 'Print' , 'Photo CD' , 'Photo Download' ), true); // Array of items for sale through Paypal
-define("PAYPALPRICES", array( '5.00' , '3.00' , '4.50' , '4.00' ), true); // Array of prices of items for sale through Paypal
+$PAYPALITEMS = array( 'Print &amp; Mount' , 'Print' , 'Photo CD' , 'Photo Download' ); // Array of items for sale through Paypal
+$PAYPALPRICES = array( '5.00' , '3.00' , '4.50' , '4.00' ); // Array of prices of items for sale through Paypal
 define("PAYPALSHIPPING", '0.50', true); // Shipping per item sold through Paypal
 
 // Gallery Settings
@@ -44,6 +47,7 @@ define("THUMBNAILHEIGHT", 100, true); // Height of thumbnails
 define("THUMBNAILWIDTH", 150, true); // Width of thumbnails
 define("PREVIEWHEIGHT", 660, true); // Height of image previews
 define("PREVIEWWIDTH", 440, true); // Width of image previews
+define("GALLERYTITLE", 'gallery', true); // Browser title for site
 
 include(MARKDOWNLOCATION);
 include(SMARTYPANTSLOCATION);
