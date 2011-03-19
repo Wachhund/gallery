@@ -14,7 +14,24 @@ function displaycontent($slug) {
     die('Error retrieving content'.mysql_error($cxn));
   }
   $row = mysql_fetch_assoc($result);
-  echo(smartypants(markdown(stripslashes($row['content']))));
+  $text = $row['content'];
+  $matches = array();
+  preg_match_all("/\[\[![A-Za-z0-9,]*\]\]",$text,$matches);
+  foreach($matches as $match) {
+  	$args = explode(",",substr($match,3,-2))
+  	$includepath = TEMPLATESFOLDER.$args[0].".php?";
+  	for ($i=1;$i<=len($args);$i++) {
+  		$includepath .= $i."=".$args[$i];
+  		if ($i != len($args) {
+  			$includepath .= "&";
+			}
+		}
+		$include = include $includepath;
+		if ($include != FALSE) {
+			str_replace($match,"<div>".$include."</div>",$text);
+		}
+  }
+  echo(smartypants(markdown(stripslashes($text))));
 }
 
 function requirelogin() {

@@ -25,6 +25,7 @@ define("SMARTYPANTSLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/smartypan
 define("FUNCTIONSLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/functions.php', true); // Location of functions.php file
 define("STYLESHEETLOCATION", '../setup/style/style.css', true); // Location of style.css file
 define("FAVICONLOCATION", '../setup/style/favicon.ico', true); // Location of favicon.ico file
+define("TEMPLATESLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/templates/', true); // Location of tmeplates folder, with trailing slash
 
 // Amazon AWS settings
 define("AWSPUBLICKEY", 'azqwsxdecfrvgtbnuhjmikolp', true);
