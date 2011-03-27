@@ -5,27 +5,6 @@ body {
   font-family: Helvetica, Georgia, Verdana, sans-serif;
 }
 
-.postit {
-  width: 428px;
-  height: 454px;
-  background-image: url(../img/postit.png);
-  float: left;
-  margin-left: -60px;
-  margin-top: -65px;
-  margin-right: 20px;
-}
-
-.postittext {
- -webkit-transform: rotate(-3.25deg);
- -moz-transform: rotate(-3.25deg);
-  transform: rotate(-3.25deg);
-  padding: 60px 35px 50px 50px;
-  max-height: 280px; 
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 100%;
-}
-
 .content {
   position: relative;
   top: 0;
@@ -36,57 +15,14 @@ body {
   z-index: 1;
 }
 
-.lowercontent {
-	clear: both;
-	width: 100%;
-	padding-bottom: 50px;
-}
-
-.uppercontent {
-  padding-right: 20px;
-}
-
 .news {
   font-family: Helvetica, Verdana, sans-serif;
 }
 
-.navcontainer {
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	padding: 0;
-	z-index: 20;
-}
-
-.nav {
-  background-color: #f9ee6f;
-  margin-left:auto;
-  margin-right:auto;
-	width:95%;
-  font-size: 85%;
-	padding: 0;
-}
-
-.navhead {
-  width: 100%;
-  margin-left:auto;
-  margin-right:auto;
-  border-style: groove none;
-  border-color: #996600;
-  border-width: medium;
-	padding: 0;
-}
-
-.navcontent {
-  width: 100%;
-  margin-left:auto;
-  margin-right:auto;
-	padding: 0;
-}
-
 hr {
 	border: 0;
-	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
 	color: #663300;
 	background-color: #663300;
 	height: 3px;

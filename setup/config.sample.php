@@ -50,6 +50,12 @@ define("PREVIEWHEIGHT", 660, true); // Height of image previews
 define("PREVIEWWIDTH", 440, true); // Width of image previews
 define("GALLERYTITLE", 'gallery', true); // Browser title for site
 
+// RSS Settings
+define("RSSLOCATION",$_SERVER['DOCUMENT_ROOT']."gallery/rss.xml",true);
+define("RSSTITLE","Gallery News Feed",true);
+define("RSSLINK","http://www.example.com",true);
+define("RSSDESCRIPTION","A News Feed for the Gallery",true);
+
 include(MARKDOWNLOCATION);
 include(SMARTYPANTSLOCATION);
 include(FUNCTIONSLOCATION);

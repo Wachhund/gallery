@@ -17,11 +17,12 @@ function displaycontent($slug) {
   $row = mysql_fetch_assoc($result);
   $text = $row['content'];
   $matches = array();
-  $pregresult = preg_match_all("/\[\[![A-Za-z0-9,]*\]\]/",$text,$matches);
+  $pregresult = preg_match_all("/\[\[![A-Za-z0-9,-_\s]*\]\]/",$text,$matches);
   if (($pregresult != 0) && ($pregresult != FALSE)) {
+  		$matches = $matches[0];
 		foreach($matches as $match) {
 			$_GET = array();
-			$args = explode(",",substr($match[0],3,-2));
+			$args = explode(",",substr($match,3,-2));
 			$includepath = TEMPLATESLOCATION.$args[0].".php";
 			if (count($args) > 1) {
 				for ($i=1;$i<=(count($args)-1);$i++) {
@@ -29,7 +30,7 @@ function displaycontent($slug) {
 				}
 			}
 			include($includepath);
-			$text = str_replace($match[0],"<div>".$returnstr."</div>",$text);
+			$text = str_replace($match,"<div>".$returnstr."</div>",$text);
 		}
 	}
   echo(smartypants(markdown(stripslashes($text))));
