@@ -89,44 +89,32 @@ function ie_box() {
     }
 }
 
-function displaybutton($photoname,$photoid) {
-$business = BUSINESSID;
-$shipping = PAYPALSHIPPING;
-global $PAYPALITEMS;
-global $PAYPALPRICES;
-$code = <<<text
-<form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-<input type="hidden" name="cmd" value="_cart" />
-<input type="hidden" name="business" value="$business" />
-<input type="hidden" name="lc" value="GB" />
-<input type="hidden" name="item_name" value="Buy Photo - $photoname" />
-<input type="hidden" name="item_number" value="$photoid" />
-<input type="hidden" name="button_subtype" value="products" />
-<input type="hidden" name="shipping" value="$shipping" />
-<input type="hidden" name="add" value="1" />
-<input type="hidden" name="bn" value="PP-ShopCartBF:btn_cart_LG.gif:NonHosted" />
-<input type="hidden" name="on0" value="Purchase" />
-<p>What would you like to buy?</p>
-<select name="os0">\n
-text;
-foreach ($PAYPALITEMS as $key => $value) {
-	$code .= "<option value=\"".$value."\">".$value." £".$PAYPALPRICES[$key]."</option>\n";
+function curPageURL() {
+ $pageURL = 'http';
+ if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+ $pageURL .= "://";
+ if ($_SERVER["SERVER_PORT"] != "80") {
+  $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+ } else {
+  $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+ }
+ return $pageURL;
 }
-$code .= <<<text
-</select>
-<input type="hidden" name="currency_code" value="GBP" />\n
-text;
-foreach ($PAYPALITEMS as $key => $value) {
-	$code .= "<input type=\"hidden\" name=\"option_select".$key."\" value=\"".$value."\" />\n";
-	$code .= "<input type=\"hidden\" name=\"option_amount".$key."\" value=\"".$PAYPALPRICES[$key]."\" />\n";
+
+function shoppingform($photoid) {
+	echo("<div class=\"shoppingform\">\n<form action=\"cart.php\" method=\"post\">\n");
+	echo("<input type=\"hidden\" name=\"referrer\" value=\"".curPageURL()."\" />\n");
+	echo("<input type=\"hidden\" name=\"photoid\" value=\"".$photoid."\" />\n");
+	echo("<input type=\"select\" name=\"item\" id=\"item\">\n");
+	global $cxn;
+	$qry = "SELECT * FROM `".GALLERYDB."`.`".PRODUCTSTBL."` WHERE `producttype`='photo'";
+	$result = mysql_query($qry,$cxn);
+	while ($row = mysql_fetch_assoc($result)) 
+		echo("<option value=\"".$row['id']."\">".stripslashes($row['name'])."</option>\n");
+	}
+	echo("</input>\n");
+	echo("<div id=\"iteminfo\"></div>\n");
+	echo("<input type=\"submit\" />\n</form>\n</div>\n");	
 }
-$code .= <<<text
-<input type="hidden" name="option_index" value="0" />
-<br />
-<input type="image" src="https://www.paypal.com/en_GB/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online." />
-<img alt="" border="0" src="https://www.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1" />
-</form>
-text;
-echo($code);
-}
+
 ?>

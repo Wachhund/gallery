@@ -16,6 +16,7 @@ define("GALLERYTBL",'galleries',true); // Name of table for galleries
 define("DOWNLOADTBL",'download',true); // Name of table for image downloads
 define("CONTENTTBL",'content',true); // Name of table for site content
 define("USERSTBL",'users',true); // Name of table for site admin system users
+define("PRODUCTSTBL",'products',true); // Name of table for products to be sold
 
 // Installation Location Settings
 define("AMAZONLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/amazon/sdk.class.php', true); // Location of Amazon AWS SDK class file
@@ -25,22 +26,20 @@ define("SMARTYPANTSLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/smartypan
 define("FUNCTIONSLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/functions.php', true); // Location of functions.php file
 define("STYLESHEETLOCATION", '../setup/style/style.css', true); // Location of style.css file
 define("FAVICONLOCATION", '../setup/style/favicon.ico', true); // Location of favicon.ico file
-define("TEMPLATESLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/templates/', true); // Location of tmeplates folder, with trailing slash
+define("TEMPLATESLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/templates/', true); // Location of templates folder, with trailing slash
+define("AJAXLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/ajax/', true); // Location of ajax folder, with trailing slash
 
 // Amazon AWS settings
-define("AWSPUBLICKEY", 'azqwsxdecfrvgtbnuhjmikolp', true);
-define("AWSPRIVATEKEY", 'azwsxdcrfvtgybuhnjimkopl', true);
+define("AWSPUBLICKEY", 'examplepublickey', true);
+define("AWSPRIVATEKEY", 'exampleprivatekey', true);
 define("BUCKET", 'mybucket', true);
 
 // Jumploader settings
 define("UPLOADDIR", $_SERVER['DOCUMENT_ROOT'].'gallery/uploads/', true); // Location of folder to temporarily upload files to. Must be writable by server
 define("UPLOADSTAGEDIR", $_SERVER['DOCUMENT_ROOT'].'gallery/uploads/stage/', true); // Location of folder to temporarily upload file partitions to. Must be writable by server
 
-// Paypal settings
-define("BUSINESSID", 'ESXRD56VYUI8', true); // Paypal business id, for creation of button
-$PAYPALITEMS = array( 'Print &amp; Mount' , 'Print' , 'Photo CD' , 'Photo Download' ); // Array of items for sale through Paypal
-$PAYPALPRICES = array( '5.00' , '3.00' , '4.50' , '4.00' ); // Array of prices of items for sale through Paypal
-define("PAYPALSHIPPING", '0.50', true); // Shipping per item sold through Paypal
+// Google Checkout settings
+define("MERCHANTID", 'examplemerchantid', true); // Google Checkout business id, for creation of button
 
 // Gallery Settings
 define("WATERMARKLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/watermark.png', true); // Location of transparent watermark to stamp previews with
