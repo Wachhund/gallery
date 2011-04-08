@@ -28,5 +28,5 @@ foreach($xml->channel->children() as $child)
   }
 $returnstr .= "</div>";
 
-return $returnstr;
+echo $returnstr;
 ?>

@@ -15,6 +15,7 @@ define("IMGSTBL",'photos',true); // Name of table for images
 define("GALLERYTBL",'galleries',true); // Name of table for galleries
 define("DOWNLOADTBL",'download',true); // Name of table for image downloads
 define("CONTENTTBL",'content',true); // Name of table for site content
+define("PAGESTBL",'pages',true); // Name of table for site pages
 define("USERSTBL",'users',true); // Name of table for site admin system users
 define("PRODUCTSTBL",'products',true); // Name of table for products to be sold
 
@@ -24,8 +25,8 @@ define("JUMPLOADERLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/jar/', tru
 define("MARKDOWNLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/markdown.php', true); // Location of markdown class file
 define("SMARTYPANTSLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/smartypants.php', true); // Location of markdown class file
 define("FUNCTIONSLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/functions.php', true); // Location of functions.php file
-define("STYLESHEETLOCATION", '../setup/style/style.css', true); // Location of style.css file
-define("FAVICONLOCATION", '../setup/style/favicon.ico', true); // Location of favicon.ico file
+define("STYLESHEETLOCATION", '/gallery/setup/style/style.css', true); // Location of style.css file, relative to document root, with leading slash
+define("FAVICONLOCATION", '/gallery/setup/style/favicon.ico', true); // Location of favicon.ico file, relative to document root, with leading slash
 define("TEMPLATESLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/templates/', true); // Location of templates folder, with trailing slash
 define("AJAXLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/ajax/', true); // Location of ajax folder, with trailing slash
 

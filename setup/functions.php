@@ -19,18 +19,16 @@ function displaycontent($slug) {
   $matches = array();
   $pregresult = preg_match_all("/\[\[![A-Za-z0-9,-_\s]*\]\]/",$text,$matches);
   if (($pregresult != 0) && ($pregresult != FALSE)) {
-  		$matches = $matches[0];
+		$matches = $matches[0];
 		foreach($matches as $match) {
 			$_GET = array();
 			$args = explode(",",substr($match,3,-2));
 			$includepath = TEMPLATESLOCATION.$args[0].".php";
-			if (count($args) > 1) {
-				for ($i=1;$i<=(count($args)-1);$i++) {
-					$_GET[$i] = $args[$i];
-				}
-			}
-			include($includepath);
-			$text = str_replace($match,"<div>".$returnstr."</div>",$text);
+			ob_start();
+			include $includepath;
+			$contents = ob_get_contents();
+			ob_end_clean();
+			$text = str_replace($match,"<div>".$contents."</div>",$text);
 		}
 	}
   echo(smartypants(markdown(stripslashes($text))));

@@ -1,7 +1,7 @@
 <map version="0.9.0">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
 <node CREATED="1301427847780" ID="ID_1063718078" MODIFIED="1301741237858" TEXT="Toastwaffle">
-<node CREATED="1301428006255" FOLDED="true" ID="ID_276520282" MODIFIED="1301742777375" POSITION="right" STYLE="fork" TEXT="Admin Interface">
+<node CREATED="1301428006255" ID="ID_276520282" MODIFIED="1302280734397" POSITION="right" STYLE="fork" TEXT="Admin Interface">
 <icon BUILTIN="full-1"/>
 <node CREATED="1301428360894" ID="ID_80864282" MODIFIED="1301741463421" TEXT="Manage Products">
 <icon BUILTIN="full-4"/>
@@ -66,6 +66,9 @@
 <icon BUILTIN="full-2"/>
 <node CREATED="1301433030640" ID="ID_113376448" MODIFIED="1301433082110" TEXT="as per editcontent"/>
 </node>
+<node CREATED="1302280742582" ID="ID_1050899862" MODIFIED="1302280780736" TEXT="Navigation  Template">
+<icon BUILTIN="full-4"/>
+</node>
 </node>
 <node CREATED="1301428407706" ID="ID_610145618" MODIFIED="1301741821881" TEXT="Templates">
 <icon BUILTIN="full-2"/>
@@ -77,6 +80,9 @@
 </node>
 <node CREATED="1301433109173" ID="ID_1686624506" MODIFIED="1301741873738" TEXT="preview">
 <icon BUILTIN="full-3"/>
+</node>
+<node CREATED="1302280804627" ID="ID_220127962" MODIFIED="1302280812301" TEXT="Pages list">
+<icon BUILTIN="full-4"/>
 </node>
 </node>
 <node CREATED="1301428413601" ID="ID_256131236" MODIFIED="1301741818073" TEXT="Content Blocks">
@@ -102,7 +108,7 @@
 </node>
 </node>
 </node>
-<node CREATED="1301428028867" FOLDED="true" ID="ID_1823195414" MODIFIED="1301742779017" POSITION="right" TEXT="Main Site">
+<node CREATED="1301428028867" FOLDED="true" ID="ID_1823195414" MODIFIED="1302280732867" POSITION="right" TEXT="Main Site">
 <icon BUILTIN="full-2"/>
 <node CREATED="1301428236543" ID="ID_802269225" MODIFIED="1301741485053" TEXT="Front Page">
 <icon BUILTIN="full-4"/>
