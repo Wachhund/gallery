@@ -6,8 +6,8 @@ displaycontent("html-admin-page-header");
 <div class="gallerycontent">
 <?php
 if (isset($_POST['add'])) {
-if (!isset($_PASSWORD) {
-	die("<p>You must add a password to make a gallerie private. <a href=\"javascript:history.go(-1)\">Go Back.</a></p>");
+if (!isset($_POST['password'])) {
+	die("<p>You must add a password to make a gallery private. <a href=\"javascript:history.go(-1)\">Go Back.</a></p>");
 }
 $slug = strtolower($_POST['name']);
 $slug = preg_replace("/[^a-z0-9\s-]/", "", $slug);
@@ -16,9 +16,12 @@ $slug = trim(substr($slug, 0, 255));
 $slug = preg_replace("/\s/", "-", $slug);
 $slug = mysql_real_escape_string($slug);
 if (isset($_POST['private'])) {
-$qry = "INSERT INTO `".GALLERYDB."`.`".GALLERYTBL."` (name,slug,description,private,password) VALUES ('".mysql_real_escape_string($_POST['name'])."','".$slug."','".mysql_real_escape_string($_POST['description'])."',1,'".hash('SHA256',$_POST['password'])."'";
+$qry = "INSERT INTO `".GALLERYDB."`.`".GALLERYTBL."` (name,slug,description,private,password) VALUES 
+('".mysql_real_escape_string($_POST['name'])."','".$slug."','".mysql_real_escape_string($_POST['description'])."',1,'".hash("sha256",$_POST['password'])."')";
+echo($qry);
 } else {
-$qry = "INSERT INTO `".GALLERYDB."`.`".GALLERYTBL."` (name,slug,description,private) VALUES ('".mysql_real_escape_string($_POST['name'])."','".$slug."','".mysql_real_escape_string($_POST['description'])."',0";
+$qry = "INSERT INTO `".GALLERYDB."`.`".GALLERYTBL."` (name,slug,description,private) VALUES 
+('".mysql_real_escape_string($_POST['name'])."','".$slug."','".mysql_real_escape_string($_POST['description'])."',0)";
 }
 $result = mysql_query($qry,$cxn);
 if ($result) {
@@ -30,16 +33,19 @@ else {
 }
 elseif (isset($_POST['edit'])) {
 if (isset($_POST['private'])) {
-  if (isset($_POST['password'])) {
-		$qry = "UPDATE `".GALLERYDB."`.`".GALLERYTBL."` SET `name`='".mysql_real_escape_string($_POST['name'])."' , `slug`='".mysql_real_escape_string($_POST['newslug'])."' , `description`='".mysql_real_escape_string($_POST['description'])."' , `private`='1' , `password`='".hash('SHA256',$_POST['password'])."' WHERE `slug`='".mysql_real_escape_string($_POST['oldslug'])."'";
+  if ((isset($_POST['password'])) && ($_POST['password'] != "")) {
+		$qry = "UPDATE `".GALLERYDB."`.`".GALLERYTBL."` SET `name`='".mysql_real_escape_string($_POST['name'])."' , 
+`slug`='".mysql_real_escape_string($_POST['newslug'])."' , `description`='".mysql_real_escape_string($_POST['description'])."' , `private`='1' , 
+`password`='".hash("sha256",$_POST['password'])."' WHERE `slug`='".mysql_real_escape_string($_POST['oldslug'])."'";
   } else {
-		$qry = "UPDATE `".GALLERYDB."`.`".GALLERYTBL."` SET `name`='".mysql_real_escape_string($_POST['name'])."' , `slug`='".mysql_real_escape_string($_POST['newslug'])."' , `description`='".mysql_real_escape_string($_POST['description'])."' , `private`='0' WHERE `slug`='".mysql_real_escape_string($_POST['oldslug'])."'";
+		$qry = "UPDATE `".GALLERYDB."`.`".GALLERYTBL."` SET `name`='".mysql_real_escape_string($_POST['name'])."' , 
+`slug`='".mysql_real_escape_string($_POST['newslug'])."' , `description`='".mysql_real_escape_string($_POST['description'])."' , `private`='1' WHERE `slug`='".mysql_real_escape_string($_POST['oldslug'])."'";
 	}
 } else {
 $qry = "UPDATE `".GALLERYDB."`.`".GALLERYTBL."` SET 
 `name`='".mysql_real_escape_string($_POST['name'])."' , 
 `slug`='".mysql_real_escape_string($_POST['newslug'])."' , 
-`description`='".mysql_real_escape_string($_POST['description'])."' , `private`='0' 
+`description`='".mysql_real_escape_string($_POST['description'])."' , `private`='0' , `password`=''
 WHERE `slug`='".mysql_real_escape_string($_POST['oldslug'])."'";
 }
 $result = mysql_query($qry,$cxn);
@@ -91,6 +97,7 @@ $row = mysql_fetch_assoc($result);
 echo("<h3>".$row['name']."</h3>\n");
 echo("<p>Slug: ".$row['slug']."</p>\n");
 echo("<h4>Description</h4>\n<p>".$row['description']."</p>\n");
+if ($row['private'] == 1) { echo("<p>Gallery is Private</p>"); } else { echo("<p>Gallery is Public</p>"); }
 echo("<p><a href=\"editgalleries.php?edit=".$row['slug']."\">- Edit -</a>");
 echo("<a href=\"editgalleries.php?remove=".$row['slug']."\">- Remove -</a></p>\n");
 echo("<br /><hr /><br />");

@@ -31,7 +31,11 @@ displaycontent("html-page-header");
 				echo("<h3>The page you have requested is an invalid link. Please <a href=\"index.php\">Go Home</a> to find what you're looking for</h3>");
 			} else {
 				$row = mysql_fetch_assoc($result);
-				echo(smartypants(markdown($row['content'])));
+				if ($row['html'] == 0) {
+					echo(smartypants(markdown($row['content'])));
+				} else {
+					echo($row['content']);
+				}
 			}
 		}
 	}
