@@ -10,14 +10,8 @@ if (isset($_SESSION['username'])) {
 }
 include("config.php");
 ?>
-<!DOCTYPE html>
-<html><head><meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="<?php echo(STYLESHEETLOCATION); ?>">
-<link rel="shortcut icon" type="image/ico" href="<?php echo(FAVICONLOCATION); ?>">
-<title><?php echo(GALLERYTITLE) ?></title>
-</head>
-<body>
-<div class="content" id="content" name="content">
+<?php displaycontent("html-admin-page-header"); ?>
+<div class="gallerycontent">
 <?php
 if (isset($_POST['username'])) {
 	$qry = "SELECT * FROM `".GALLERYDB."`.`".USERSTBL."` WHERE `username`='".mysql_real_escape_string($_POST['username'])."'";
@@ -77,5 +71,4 @@ echo "<input type=\"hidden\" name=\"ref\" value=\"$uri\"";
 <hr />
 <?php displaycontent('admin-navigation-bar'); ?>
 </div>
-</body>
-</html>
+<?php displaycontent("html-admin-page-footer"); ?>

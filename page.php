@@ -1,19 +1,11 @@
 <?php
 include("setup/config.php");
+displaycontent("html-page-header");
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; 
-charset=ISO-8859-1">
-	<link rel="stylesheet" type="text/css" href="<?php echo(STYLESHEETLOCATION); ?>">
-	<link rel="shortcut icon" type="image/ico" href="<?php echo(FAVICONLOCATION); ?>">
-	<title><?php echo(GALLERYTITLE); ?></title>
-</head>
-<body>
-<div class="content">
+<div class="gallerycontent">
 <?php
   if ((!isset($_GET)) || (count($_GET) != 1)) {
+  var_dump($_GET);
   ?>
   <h1>Pages</h1>
   <hr />
@@ -29,7 +21,7 @@ charset=ISO-8859-1">
   <?php
   } else {
 		foreach ($_GET as $key => $value) {
-			if ($vale != "") { 
+			if ($value != "") { 
 				$qry = "SELECT * FROM `".GALLERYDB."`.`".PAGESTBL."` WHERE `slug`='".$value."'";
 			} else {
 				$qry = "SELECT * FROM `".GALLERYDB."`.`".PAGESTBL."` WHERE `slug`='".$key."'";
@@ -45,5 +37,4 @@ charset=ISO-8859-1">
 	}
 ?>
 </div>
-</body>
-</html>
+<?php displaycontent("html-page-footer"); ?>

@@ -21,17 +21,20 @@ function displaycontent($slug) {
   if (($pregresult != 0) && ($pregresult != FALSE)) {
 		$matches = $matches[0];
 		foreach($matches as $match) {
-			$_GET = array();
 			$args = explode(",",substr($match,3,-2));
 			$includepath = TEMPLATESLOCATION.$args[0].".php";
 			ob_start();
 			include $includepath;
 			$contents = ob_get_contents();
 			ob_end_clean();
-			$text = str_replace($match,"<div>".$contents."</div>",$text);
+			$text = str_replace($match,$contents,$text);
 		}
 	}
-  echo(smartypants(markdown(stripslashes($text))));
+  if ($row['html'] == 0) {
+  	echo(smartypants(markdown(stripslashes($text))));
+  } else {
+	echo(stripslashes($text));
+  }
 }
 
 function requirelogin() {
@@ -58,7 +61,7 @@ function ie_box() {
         ?>
 <div class="iedoom">
 <h2>Hi. You're using Internet Explorer, a non standards-compliant, inept browser.</h2>
-<p>As a developer, I do not in any way support the use of Internet Explorer, due to it's incorrect behaviours in rendering webpages. The extra work I would have to put in to make this website behave correctly in Internet Explorer does not justify the benefits I would gain. You are still free to use this website, and this message will only be displayed on the homepage, however no promises are made as to whether certain features will work. I <em>strongly</em> recommend you switch to using one of the free browsers below. Feel free to <a href="mailto:supersam.littley@gmail.com">contact me</a> if you need help with this</p>
+<p>As a developer, I do not in any way support the use of Internet Explorer, due to its incorrect behaviours in rendering webpages. The extra work I would have to put in to make this website behave correctly in Internet Explorer does not justify the benefits I would gain. You are still free to use this website, and this message will only be displayed on the homepage, however no promises are made as to whether certain features will work. I <em>strongly</em> recommend you switch to using one of the free browsers below. You are welcome to <a href="mailto:supersam.littley@gmail.com">contact me</a> if you require any assistance with this</p>
 <table border="0" text-align="center">
 <tr>
 <a href="http://www.mozilla.com/en-US/firefox/">
@@ -107,7 +110,7 @@ function shoppingform($photoid) {
 	global $cxn;
 	$qry = "SELECT * FROM `".GALLERYDB."`.`".PRODUCTSTBL."` WHERE `producttype`='photo'";
 	$result = mysql_query($qry,$cxn);
-	while ($row = mysql_fetch_assoc($result)) 
+	while ($row = mysql_fetch_assoc($result)) {
 		echo("<option value=\"".$row['id']."\">".stripslashes($row['name'])."</option>\n");
 	}
 	echo("</input>\n");

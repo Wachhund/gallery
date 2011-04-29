@@ -1,19 +1,9 @@
 <?php
 include("config.php");
 requirelogin();
+displaycontent("html-admin-page-header");
 ?>
-<!DOCTYPE html>
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="<?php 
-echo(STYLESHEETLOCATION); 
-?>">
-<link rel="shortcut icon" type="image/ico" href="<?php 
-echo(FAVICONLOCATION); 
-?>">
-<title><?php echo(GALLERYTITLE) ?></title>
-</head>
-<body>
-<div class="content" id="content" name="content">
+<div class="gallerycontent">
 <?php
 if (isset($_POST['add'])) {
 $slug = strtolower($_POST['name']);
@@ -22,7 +12,15 @@ $slug = trim(preg_replace("/[\s-]+/", " ", $slug));
 $slug = trim(substr($slug, 0, 255));
 $slug = preg_replace("/\s/", "-", $slug);
 $slug = mysql_real_escape_string($slug);
-$qry = "INSERT INTO `".GALLERYDB."`.`".CONTENTTBL."` (name,slug,content) VALUES ('".mysql_real_escape_string($_POST['name'])."','".$slug."','".mysql_real_escape_string($_POST['content'])."')";
+if (isset($_POST['html'])) {
+	$qry = "INSERT INTO `".GALLERYDB."`.`".CONTENTTBL."` 
+(name,slug,content,html) VALUES 
+('".mysql_real_escape_string($_POST['name'])."','".$slug."','".mysql_real_escape_string($_POST['content'])."',1)";
+} else {
+	$qry = "INSERT INTO `".GALLERYDB."`.`".CONTENTTBL."` 
+(name,slug,content,html) VALUES 
+('".mysql_real_escape_string($_POST['name'])."','".$slug."','".mysql_real_escape_string($_POST['content'])."',0)";
+}
 $result = mysql_query($qry,$cxn);
 if ($result) {
   echo("<p>New Content Item Added - ".$_POST['name']."</p>");
@@ -32,7 +30,19 @@ else {
 }
 }
 elseif (isset($_POST['edit'])) {
-$qry = "UPDATE `".GALLERYDB."`.`".CONTENTTBL."` SET `name`='".mysql_real_escape_string($_POST['name'])."' , `slug`='".mysql_real_escape_string($_POST['newslug'])."' , `content`='".mysql_real_escape_string($_POST['content'])."' WHERE `slug`='".mysql_real_escape_string($_POST['oldslug'])."'";
+if (isset($_POST['html'])) {
+$qry = "UPDATE `".GALLERYDB."`.`".CONTENTTBL."` SET 
+`name`='".mysql_real_escape_string($_POST['name'])."' , 
+`slug`='".mysql_real_escape_string($_POST['newslug'])."' , 
+`content`='".mysql_real_escape_string($_POST['content'])."' , `html`='1' 
+WHERE `slug`='".mysql_real_escape_string($_POST['oldslug'])."'";
+} else {
+$qry = "UPDATE `".GALLERYDB."`.`".CONTENTTBL."` SET 
+`name`='".mysql_real_escape_string($_POST['name'])."' , 
+`slug`='".mysql_real_escape_string($_POST['newslug'])."' , 
+`content`='".mysql_real_escape_string($_POST['content'])."' , `html`='0' 
+WHERE `slug`='".mysql_real_escape_string($_POST['oldslug'])."'";
+}
 $result = mysql_query($qry,$cxn);
 if ($result) {
   echo("<p>Content Item Updated - ".$_POST['name']."</p>");
@@ -64,7 +74,13 @@ echo("<input type=\"hidden\" name=\"oldslug\" value=\"".$_GET['edit']."\" />\n")
 echo("<p>Name: <input type=\"text\" length=\"255\" width=\"50\" name=\"name\" value=\"".$row['name']."\" /></p>\n");
 echo("<p>Slug: <input type=\"text\" length=\"255\" width=\"50\" name=\"newslug\" value=\"".$row['slug']."\" /></p>\n");
 echo("<p>Content\n<textarea rows=\"20\" cols=\"50\" name=\"content\">".stripslashes($row['content'])."</textarea></p>\n");
-echo("<input type=\"submit\" value=\"Submit\" />\n</form>\n<br /><hr /><br />");
+if ($row['html'] == 1) {
+echo("<p>Raw HTML: <input type=\"checkbox\" name=\"html\" value=\"html\" checked=\"checked\" /></p>\n");
+} else {
+echo("<p>Raw HTML: <input type=\"checkbox\" name=\"html\" value=\"html\" /></p>\n");
+}
+echo("<input type=\"submit\" value=\"Submit\" />\n</form>\n<br /><hr 
+/><br />");
 }
 elseif (isset($_GET['view'])) {
 $qry = "SELECT * FROM `".GALLERYDB."`.`".CONTENTTBL."` WHERE `slug` = '".mysql_real_escape_string($_GET['view'])."'";
@@ -87,6 +103,7 @@ echo("<br /><hr /><br />");
 <input type="hidden" name="add" value="add" />
 <p>Name: <input type="text" length="255" width="50" name="name" /></p>
 <p>Content: <textarea rows="20" cols="50" name="content"></textarea></p>
+<p>Raw HTML: <input type="checkbox" name="html" value="html" /></p>
 <input type="submit" value="Submit" />
 </form>
 <br /><hr /><br />
@@ -116,5 +133,4 @@ while ($row = mysql_fetch_assoc($result)) {
 <hr />
 <?php displaycontent('admin-navigation-bar'); ?>
 </div>
-</body>
-</html>
+<?php displaycontent('html-admin-page-footer'); ?>

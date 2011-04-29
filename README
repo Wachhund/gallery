@@ -22,6 +22,14 @@ Sam Littley
 
 CHANGELOG
 
+29/04/2011 - v0.3 Alpha 1
+-------------------------
+
+Added styling, all gallery content will be generated within a single 
+<div class="gallerycontent">, and a content item can be used to add the 
+page headers and divisions for styling etc. Option added to content 
+items whether to process using markdown or leave as raw HTML.
+
 04/04/2011 - v0.2 Alpha 1
 -------------------------
 

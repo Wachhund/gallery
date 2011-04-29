@@ -8,8 +8,8 @@ Argument 2: String for output
 */
 $returnstr = "";
 
-$returnstr .= $_GET['1'];
-$returnstr .= $_GET['2'];
+$returnstr .= $args['1'];
+$returnstr .= $args['2'];
 
 echo $returnstr;
 

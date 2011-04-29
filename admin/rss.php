@@ -2,13 +2,8 @@
 include("config.php");
 requirelogin();
 ?>
-<!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="<?php echo(STYLESHEETLOCATION); ?>">
-<link rel="shortcut icon" type="image/ico" href="<?php echo(FAVICONLOCATION); ?>">
-<title><?php echo(GALLERYTITLE) ?></title>
-</head>
-<body>
-<div class="content" id="content" name="content">
+<?php displaycontent("html-admin-page-header"); ?>
+<div class="gallerycontent">
 <?php
 if (!isset($_POST['title'])) {
 ?>
@@ -87,5 +82,4 @@ else {
 ?>
 <?php displaycontent('admin-navigation-bar'); ?>
 </div>
-</body>
-</html>
+<?php displaycontent("html-admin-page-footer"); ?>
