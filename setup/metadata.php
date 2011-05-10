@@ -1,20 +1,15 @@
 <?php
 include("config.php");
-header("Content-type: text/xml");
-$starttext = <<<STARTTEXT
-<metadata width="300" height="250" title="Metadata" ok="Ok" cancel="Cancel">
-    <input type="text" name="name" label="Title" />
-    <input type="textarea" rows="4" name="description" label="Description" />
-    <input type="select" name="galleryid" label="Gallery">
-STARTTEXT;
-echo($starttext);
-$qry = "SELECT * FROM `".GALLERYDB."`.`".GALLERYTBL."`";
+header("Content-Type: text/plain");
+echo("<metadata width=\"300\" height=\"380\" title=\"Image Information\" ok=\"Ok\" cancel=\"Cancel\">\n");
+echo("\t<input type=\"text\" name=\"name\" label=\"Image Title\" />\n");
+echo("\t<input type=\"textarea\" name=\"description\" label=\"Image Description\" />\n");
+echo("\t<input type=\"text\" name=\"date\" label=\"Date (YYYY-MM-DD) - Blank to use EXIF\" />\n");
+echo("\t<input type=\"select\" name=\"galleryid\" label=\"Gallery\" massApplyEnabled=\"true\" massApply=\"true\" required=\"true\">\n");
+$qry = "SELECT id,name FROM `".GALLERYDB."`.`".GALLERYTBL."`";
 $result = mysql_query($qry,$cxn);
 while ($row = mysql_fetch_assoc($result)) {
-	echo("<option value=\"".$row['id']."\" name=\"".$row['id']." - ".stripslashes($row['name'])."\" />");
+echo("\t\t<option value=\"".$row['id']."\" name=\"".stripslashes($row['name'])."\" />\n");
 }
-$endtext = <<<ENDTEXT
-    </input>
-</metadata>
-ENDTEXT;
-echo($endtext);
+echo("\t</input>\n</metadata>");
+?>
