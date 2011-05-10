@@ -9,8 +9,9 @@
 <icon BUILTIN="full-1"/>
 </node>
 </node>
-<node CREATED="1301428368894" ID="ID_451128721" MODIFIED="1301741452244" TEXT="Manage Galleries">
+<node CREATED="1301428368894" FOLDED="true" ID="ID_451128721" MODIFIED="1304113405417" TEXT="Manage Galleries">
 <icon BUILTIN="full-1"/>
+<icon BUILTIN="button_ok"/>
 <node CREATED="1301504417127" ID="ID_1728334208" MODIFIED="1301741541382" TEXT="Add/Delete">
 <icon BUILTIN="full-1"/>
 </node>
