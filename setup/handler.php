@@ -99,7 +99,10 @@ if( $all_in_place ) {
     list($width,$height) = getimagesize($filename);
     
     $exif = exif_read_data($filename,"FILE");
-    if ($exif) {
+    if (isset($_POST['date'])) {
+	$time = strtotime($_POST['date']);
+    }
+    elseif ($exif) {
     	$time = $exif['FILE']['FileDateTime'];
     } else {
     	$time = time();
@@ -108,13 +111,15 @@ if( $all_in_place ) {
     $qry = "INSERT INTO `".GALLERYDB."`.`".IMGSTBL."` (galleryid,name,date,description,filename,height,width) VALUES ('".mysql_real_escape_string($_POST['galleryid'])."','".mysql_real_escape_string($_POST['name'])."','".mysql_real_escape_string($date)."','".mysql_real_escape_string($_POST['description'])."','".mysql_real_escape_string($filenameshort)."','".mysql_real_escape_string($height)."','".mysql_real_escape_string($width)."')";
     $result = mysql_query($qry,$cxn);
     if (!($result)) {
-    	die("Error, could not add image to MySQL database - ".mysql_error());
+    	echo("Error, could not add image to MySQL database - ".mysql_error());
+	return;
   	}
   	
   	$s3 = new AmazonS3(AWSPUBLICKEY,AWSPRIVATEKEY);
     $input = $s3->create_object(BUCKET,$filename, array( 'fileUpload' => $filename , 'acl' => AmazonS3::ACL_PRIVATE , 'length' => filesize($filename)));
     if (!($input)) {
-    	die("Error adding file to S3");
+    	echo("Error adding file to S3");
+	return;
     }
   	
   	unlink($filename);

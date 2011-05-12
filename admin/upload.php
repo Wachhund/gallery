@@ -13,6 +13,7 @@ requirelogin();
 	<param name="uc_uploadUrl" value="<?php echo(SETUPLOCATION); ?>handler.php" />
 	<param name="uc_useMetadata" value="true" />
 	<param name="uc_metadataDescriptorUrl" value="<?php echo(SETUPLOCATION); ?>metadata.php" />
+	<param name="uc_partitionLength" value="100000" />
 </applet>
 <hr />
 <hr />
