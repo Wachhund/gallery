@@ -12,7 +12,7 @@ $user = trim(preg_replace("/[\s-]+/", " ", $user));
 $user = trim(substr($user, 0, 255));
 $user = preg_replace("/\s/", "-", $user);
 $user = mysql_real_escape_string($user);
-$qry = "INSERT INTO `".ADMINDB."`.`".USERTBL."` (username,password,email) VALUES ('".$user."','".hash("sha256",$_POST['password'])."','".mysql_real_escape_string($_POST['email'])."')";
+$qry = "INSERT INTO `".GALLERYDB."`.`".USERSTBL."` (username,password,email) VALUES ('".$user."','".hash("sha256",$_POST['password'])."','".mysql_real_escape_string($_POST['email'])."')";
 $result = mysql_query($qry,$cxn);
 if ($result) {
   echo("<p>New User Added - ".$user."</p>");
@@ -23,10 +23,10 @@ else {
 }
 elseif (isset($_POST['edit'])) {
 if ($_POST['password'] != "") {
-$qry = "UPDATE `".ADMINDB."`.`".USERTBL."` SET `username`='".mysql_real_escape_string($_POST['name'])."' , `password`='".hash("sha256",$_POST['password'])."' , `email`='".mysql_real_escape_string($_POST['email'])."' WHERE `username`='".mysql_real_escape_string($_POST['oldname'])."'";
+$qry = "UPDATE `".GALLERYDB."`.`".USERSTBL."` SET `username`='".mysql_real_escape_string($_POST['name'])."' , `password`='".hash("sha256",$_POST['password'])."' , `email`='".mysql_real_escape_string($_POST['email'])."' WHERE `username`='".mysql_real_escape_string($_POST['oldname'])."'";
 }
 else {
-$qry = "UPDATE `".ADMINDB."`.`".USERTBL."` SET `username`='".mysql_real_escape_string($_POST['name'])."' , `email`='".mysql_real_escape_string($_POST['email'])."' WHERE `username`='".mysql_real_escape_string($_POST['oldname'])."'";
+$qry = "UPDATE `".GALLERYDB."`.`".USERSTBL."` SET `username`='".mysql_real_escape_string($_POST['name'])."' , `email`='".mysql_real_escape_string($_POST['email'])."' WHERE `username`='".mysql_real_escape_string($_POST['oldname'])."'";
 }
 $result = mysql_query($qry,$cxn);
 if ($result) {
@@ -37,7 +37,7 @@ else {
 }
 }
 elseif (isset($_GET['remove'])) {
-$qry = "DELETE FROM `".ADMINDB."`.`".USERTBL."` WHERE `username`='".mysql_real_escape_string($_GET['remove'])."'";
+$qry = "DELETE FROM `".GALLERYDB."`.`".USERSTBL."` WHERE `username`='".mysql_real_escape_string($_GET['remove'])."'";
 $result = mysql_query($qry,$cxn);
 if ($result) {
   echo("<p>User Removed</p>");
@@ -47,7 +47,7 @@ else {
 }
 }
 elseif (isset($_GET['edit'])) {
-$qry = "SELECT * FROM `".ADMINDB."`.`".USERTBL."` WHERE `username` = '".mysql_real_escape_string($_GET['edit'])."'";
+$qry = "SELECT * FROM `".GALLERYDB."`.`".USERSTBL."` WHERE `username` = '".mysql_real_escape_string($_GET['edit'])."'";
 $result = mysql_query($qry,$cxn);
 if ((!($result)) || mysql_num_rows($result) != 1) {
   die("Could not retrieve User Details. <a href=\"javascript:history.go(-1)\">Go Back</a> - ".mysql_error($cxn));
@@ -62,7 +62,7 @@ echo("<p>Email: <input type=\"text\" length=\"255\" width=\"50\" name=\"email\" 
 echo("<input type=\"submit\" value=\"Submit\" />\n</form>\n<br /><hr /><br />");
 }
 elseif (isset($_GET['view'])) {
-$qry = "SELECT * FROM `".ADMINDB."`.`".USERTBL."` WHERE `username` = '".mysql_real_escape_string($_GET['view'])."'";
+$qry = "SELECT * FROM `".GALLERYDB."`.`".USERSTBL."` WHERE `username` = '".mysql_real_escape_string($_GET['view'])."'";
 $result = mysql_query($qry,$cxn);
 if ((!($result)) || mysql_num_rows($result) != 1) {
   die("Could not retrieve content items. <a href=\"javascript:history.go(-1)\">Go Back</a> - ".mysql_error($cxn));
@@ -92,7 +92,7 @@ echo("<br /><hr /><br />");
 <th colspan="3">Action</th>
 </tr>
 <?php
-$qry = "SELECT username FROM `".ADMINDB."`.`".USERTBL."`";
+$qry = "SELECT username FROM `".GALLERYDB."`.`".USERSTBL."`";
 $result = mysql_query($qry,$cxn);
 if (!($result)) {
   die("Could not retrieve user details. <a href=\"javascript:history.go(-1)\">Go Back</a> - ".mysql_error($cxn));

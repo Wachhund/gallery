@@ -1,4 +1,4 @@
-This is a hand crafted gallery system for the display and sale of images, Relying on the following:
+﻿This is a hand crafted gallery system for the display and sale of images, Relying on the following:
 
 * PHP >= 5.2
 * MySQL
@@ -18,9 +18,17 @@ These files are primarily on Github for sharing between multiple worksations i u
 This is because I'm putting many projects into one, building them all together into my production site. Once finished, I'll split and publicise them.
 That said, you are welcome to grab a copy, play, do whatever. Steal snippets, steal the whole thing. Would be nice if you credit me, anything you wish.
 
+Please Note: No attempt has been made to make this project compatible with Internet Explorer, due to it's failures associated with rendering pages. Most features will not work, but the general look and feel of the pages may not be correct.
+
 Sam Littley
 
 CHANGELOG
+
+13/05/2011 - v0.4 Alpha 1
+-------------------------
+
+Management for galleries in place, uploads in place and working with slight inconsistencies.
+Backend nearly complete
 
 29/04/2011 - v0.3 Alpha 1
 -------------------------

@@ -44,64 +44,6 @@ function requirelogin() {
 	}
 }
 
-function using_ie() 
-{ 
-    $u_agent = $_SERVER['HTTP_USER_AGENT']; 
-    $ub = False; 
-    if(preg_match('/MSIE/i',$u_agent)) 
-    { 
-        $ub = True; 
-    } 
-    
-    return $ub; 
-} 
-
-function ie_box() {
-    if (using_ie()) {
-        ?>
-<div class="iedoom">
-<h2>Hi. You're using Internet Explorer, a non standards-compliant, inept browser.</h2>
-<p>As a developer, I do not in any way support the use of Internet Explorer, due to its incorrect behaviours in rendering webpages. The extra work I would have to put in to make this website behave correctly in Internet Explorer does not justify the benefits I would gain. You are still free to use this website, and this message will only be displayed on the homepage, however no promises are made as to whether certain features will work. I <em>strongly</em> recommend you switch to using one of the free browsers below. You are welcome to <a href="mailto:supersam.littley@gmail.com">contact me</a> if you require any assistance with this</p>
-<table border="0" text-align="center">
-<tr>
-<a href="http://www.mozilla.com/en-US/firefox/">
-<td>
-<h3>MOZILLA FIREFOX</h3>
-<img src="img/firefox.png" style="margin: auto;" />
-</td>
-</a>
-<a href="http://www.google.com/chrome">
-<td>
-<h3>GOOGLE CHROME</h3>
-<img src="img/chrome.png" style="margin: auto;" />
-</td>
-</a>
-<a href="http://www.apple.com/safari/">
-<td>
-<h3>APPLE SAFARI</h3>
-<img src="img/safari.png" style="margin: auto;" />
-</td>
-</a>
-</tr>
-</table>
-</div>
-        <?php
-    return;
-    }
-}
-
-function curPageURL() {
- $pageURL = 'http';
- if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
- $pageURL .= "://";
- if ($_SERVER["SERVER_PORT"] != "80") {
-  $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
- } else {
-  $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
- }
- return $pageURL;
-}
-
 function shoppingform($photoid) {
 	echo("<div class=\"shoppingform\">\n<form action=\"cart.php\" method=\"post\">\n");
 	echo("<input type=\"hidden\" name=\"referrer\" value=\"".curPageURL()."\" />\n");
