@@ -115,11 +115,23 @@ if( $all_in_place ) {
 	$time = time();
     }
     $date = date("Y-m-d H:i:s",$time);
-    $qry = "INSERT INTO `".GALLERYDB."`.`".IMGSTBL."` (galleryid,name,date,description,filename,height,width) VALUES ('".mysql_real_escape_string($_POST['galleryid'])."','".mysql_real_escape_string($_POST['name'])."','".mysql_real_escape_string($date)."','".mysql_real_escape_string($_POST['description'])."','".mysql_real_escape_string($filenameshort)."','".mysql_real_escape_string($height)."','".mysql_real_escape_string($width)."')";
+    $selqry = "SELECT position FROM `".GALLERYDB."`.`".IMGSTBL."` WHERE `galleryid` = '".mysql_real_escape_string($_POST['galleryid'])."' ORDER BY position DESC LIMIT 0 , 1";
+    $selresult = mysql_query($selqry,$cxn)
+    if (!($selresult)) {
+        echo("Error, could not add image to MySQL database - ".mysql_error());
+	    return;
+  	}
+    if (mysql_num_rows($selresult) != 1) {
+        $position = 1;
+    } else {
+        $row = mysql_fetch_assoc($selresult);
+        $position = $row['position'] + 1;
+    }
+    $qry = "INSERT INTO `".GALLERYDB."`.`".IMGSTBL."` (galleryid,position,name,date,description,filename,height,width) VALUES ('".mysql_real_escape_string($_POST['galleryid'])."','".$postition."','".mysql_real_escape_string($_POST['name'])."','".mysql_real_escape_string($date)."','".mysql_real_escape_string($_POST['description'])."','".mysql_real_escape_string($filenameshort)."','".mysql_real_escape_string($height)."','".mysql_real_escape_string($width)."')";
     $result = mysql_query($qry,$cxn);
     if (!($result)) {
     	echo("Error, could not add image to MySQL database - ".mysql_error());
-	return;
+	    return;
   	}
   	
   	$s3 = new AmazonS3(AWSPUBLICKEY,AWSPRIVATEKEY);
