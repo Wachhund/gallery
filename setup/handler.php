@@ -97,6 +97,22 @@ if( $all_in_place ) {
     $filenameshort = $timestamp . $fileext;
     rename($file,$filename);
     list($width,$height) = getimagesize($filename);
+    $image = imagecreatefromstring(file_get_contents($filename);
+    
+		$watermark = imagecreatefrompng(WATERMARKLOCATION);
+		$image_p = imagecreatetruecolor(PREVIEWWIDTH, PREVIEWHEIGHT);
+		imagecopyresampled($image_p, $image, 0, 0, 0, 0, PREVIEWWIDTH, PREVIEWHEIGHT, $width, $height);
+		imagecopymerge($image_p, $watermark, 0, 0, 0, 0, PREVIEWWIDTH, PREVIEWHEIGHT, 15);
+		imagejpeg($image_p,UPLOADDIR."preview.jpg");
+		
+		$image_t = imagecreatetruecolor(THUMBNAILWIDTH, THUMBNAILHEIGHT);
+		imagecopyresampled($image_t, $image, 0, 0, 0, 0, THUMBNAILWIDTH, THUMBNAILHEIGHT, $width, $height);
+		imagejpeg($image_t,UPLOADDIR."thumb.jpg");
+		
+		imagedestroy($image);
+		imagedestroy($image_p);
+		imagedestroy($image_t);
+		imagedestroy($watermark);
     
     $exif = exif_read_data($filename,"FILE");
     if (isset($_POST['date']) && ($_POST['date'] != '')) {
@@ -127,7 +143,7 @@ if( $all_in_place ) {
         $row = mysql_fetch_assoc($selresult);
         $position = $row['position'] + 1;
     }
-    $qry = "INSERT INTO `".GALLERYDB."`.`".IMGSTBL."` (galleryid,position,name,date,description,filename,height,width) VALUES ('".mysql_real_escape_string($_POST['galleryid'])."','".$postition."','".mysql_real_escape_string($_POST['name'])."','".mysql_real_escape_string($date)."','".mysql_real_escape_string($_POST['description'])."','".mysql_real_escape_string($filenameshort)."','".mysql_real_escape_string($height)."','".mysql_real_escape_string($width)."')";
+    $qry = "INSERT INTO `".GALLERYDB."`.`".IMGSTBL."` (galleryid,position,name,date,description,filename) VALUES ('".mysql_real_escape_string($_POST['galleryid'])."','".$postition."','".mysql_real_escape_string($_POST['name'])."','".mysql_real_escape_string($date)."','".mysql_real_escape_string($_POST['description'])."','".mysql_real_escape_string($filenameshort)."')";
     $result = mysql_query($qry,$cxn);
     if (!($result)) {
     	echo("Error, could not add image to MySQL database - ".mysql_error());
@@ -138,10 +154,22 @@ if( $all_in_place ) {
     $input = $s3->create_object(BUCKET,$filenameshort, array( 'fileUpload' => $filename , 'acl' => AmazonS3::ACL_PRIVATE , 'length' => filesize($filename)));
     if (!($input)) {
     	echo("Error adding file to S3");
-	return;
+			return;
+    }
+    $input2 = $s3->create_object(BUCKET,"thumbs/".$filenameshort, array( 'fileUpload' => UPLOADDIR."thumb.jpg" , 'acl' => AmazonS3::ACL_PRIVATE , 'length' => filesize($filename)));
+    if (!($input2)) {
+    	echo("Error adding file to S3");
+			return;
+    }
+    $input3 = $s3->create_object(BUCKET,"previews/".$filenameshort, array( 'fileUpload' => UPLOADDIR."preview.jpg" , 'acl' => AmazonS3::ACL_PRIVATE , 'length' => filesize($filename)));
+    if (!($input3)) {
+    	echo("Error adding file to S3");
+			return;
     }
   	
   	unlink($filename);
+  	unlink(UPLOADDIR."thumb.jpg");
+  	unlink(UPLOADDIR."preview.jpg");
 } 
 return;
 ?>
