@@ -1,7 +1,7 @@
 <?php
 include("config.php");
 requirelogin();
-displaycontent("html-admin-page-header");
+displaycontent("html-admin-page-header-jquery");
 ?>
 <div class="gallerycontent">
 <?php
@@ -57,35 +57,55 @@ else {
 }
 }
 elseif (isset($_GET['remove'])) {
-$qry = "DELETE FROM `".GALLERYDB."`.`".GALLERYTBL."` WHERE `slug`='".mysql_real_escape_string($_GET['remove'])."'";
-$result = mysql_query($qry,$cxn);
-if ($result) {
-  echo("<p>Gallery Removed</p>");
-}
-else {
-  echo("<p>Error, Gallery Not Removed - ".mysql_error($cxn)."</p>");
-}
+	$qry2 = "SELECT id FROM `".GALLERYDB."`.`".IMGSTBL."` WHERE `gallerid`='".mysql_real_escape_string($_GET['remove'])."'";
+	$result2 = mysql_query($qry2,$cxn);
+	if (mysql_num_rows($result2) != 0) {
+		echo("<p>Cannot Delete Gallery, is not empty</p>");
+	} else {
+		$qry = "DELETE FROM `".GALLERYDB."`.`".GALLERYTBL."` WHERE `slug`='".mysql_real_escape_string($_GET['remove'])."'";
+		$result = mysql_query($qry,$cxn);
+		if ($result) {
+			echo("<p>Gallery Removed</p>");
+		}
+		else {
+			echo("<p>Error, Gallery Not Removed - ".mysql_error($cxn)."</p>");
+		}
+	}
 }
 elseif (isset($_GET['edit'])) {
-$qry = "SELECT * FROM `".GALLERYDB."`.`".GALLERYTBL."` WHERE `slug` = '".mysql_real_escape_string($_GET['edit'])."'";
-$result = mysql_query($qry,$cxn);
-if ((!($result)) || mysql_num_rows($result) != 1) {
-  die("Could not retrieve Galleries. <a href=\"javascript:history.go(-1)\">Go Back</a> - ".mysql_error($cxn));
-}
-$row = mysql_fetch_assoc($result);
-echo("<form action=\"editgalleries.php\" method=\"post\">\n");
-echo("<input type=\"hidden\" name=\"edit\" value=\"edit\" />\n");
-echo("<input type=\"hidden\" name=\"oldslug\" value=\"".$_GET['edit']."\" />\n");
-echo("<p>Name: <input type=\"text\" length=\"255\" width=\"50\" name=\"name\" value=\"".$row['name']."\" /></p>\n");
-echo("<p>Slug: <input type=\"text\" length=\"255\" width=\"50\" name=\"newslug\" value=\"".$row['slug']."\" /></p>\n");
-echo("<p>Description\n<textarea rows=\"20\" cols=\"50\" name=\"description\">".stripslashes($row['description'])."</textarea></p>\n");
-if ($row['private'] == 1) {
-echo("<p>Private?: <input type=\"checkbox\" name=\"private\" value=\"private\" checked=\"checked\" /></p>\n");
-} else {
-echo("<p>Private?: <input type=\"checkbox\" name=\"private\" value=\"private\" /></p>\n");
-}
-echo("<p>Password (Leave blank to not change): <input type=\"password\" length=\"255\" width=\"50\" name=\"password\" /></p>\n");
-echo("<input type=\"submit\" value=\"Submit\" />\n</form>\n<br /><hr /><br />");
+	$qry = "SELECT * FROM `".GALLERYDB."`.`".GALLERYTBL."` WHERE `slug` = '".mysql_real_escape_string($_GET['edit'])."'";
+	$result = mysql_query($qry,$cxn);
+	if ((!($result)) || mysql_num_rows($result) != 1) {
+		die("Could not retrieve Galleries. <a href=\"javascript:history.go(-1)\">Go Back</a> - ".mysql_error($cxn));
+	}
+	$row = mysql_fetch_assoc($result);
+	echo("<form action=\"editgalleries.php\" method=\"post\">\n");
+	echo("<input type=\"hidden\" name=\"edit\" value=\"edit\" />\n");
+	echo("<input type=\"hidden\" name=\"oldslug\" value=\"".$_GET['edit']."\" />\n");
+	echo("<p>Name: <input type=\"text\" length=\"255\" width=\"50\" name=\"name\" value=\"".$row['name']."\" /></p>\n");
+	echo("<p>Slug: <input type=\"text\" length=\"255\" width=\"50\" name=\"newslug\" value=\"".$row['slug']."\" /></p>\n");
+	echo("<p>Description\n<textarea rows=\"20\" cols=\"50\" name=\"description\">".stripslashes($row['description'])."</textarea></p>\n");
+	if ($row['private'] == 1) {
+		echo("<p>Private?: <input type=\"checkbox\" name=\"private\" value=\"private\" checked=\"checked\" /></p>\n");
+	} else {
+		echo("<p>Private?: <input type=\"checkbox\" name=\"private\" value=\"private\" /></p>\n");
+	}
+	echo("<p>Password (Leave blank to not change): <input type=\"password\" length=\"255\" width=\"50\" name=\"password\" /></p>\n");
+	echo("<input type=\"submit\" value=\"Submit\" />\n</form>\n<br /><hr /><br />");
+	echo("<br /><hr /><br />");
+	$qry2 = "SELECT id FROM `".GALLERYDB."`.`".IMGSTBL."` WHERE `gallerid`='".mysql_real_escape_string($_GET['edit'])."'";
+	$result2 = mysql_query($qry2,$cxn);
+	if !($result2) {
+		echo("<p>Could not get photos for reordering".mysql_error()."</p>");
+	} else {
+		echo("<table id=\"dndtable\" class=\"phototbl\">\n");#
+		$i = 1;
+		while ($row = mysql_fetch_assoc($result2)) {
+			echo("<tr id=\"".$i."\"><td><p>".$i."</p></td><td><img src=\"".THUMBNAILLOCATION."\" /></td></tr>\n");
+			$i++;
+		}
+		echo("</table>\n");
+	}
 }
 elseif (isset($_GET['view'])) {
 $qry = "SELECT * FROM `".GALLERYDB."`.`".GALLERYTBL."` WHERE `slug` = '".mysql_real_escape_string($_GET['view'])."'";

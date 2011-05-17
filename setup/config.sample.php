@@ -27,8 +27,12 @@ define("SMARTYPANTSLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/smartypan
 define("FUNCTIONSLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/functions.php', true); // Location of functions.php file
 define("STYLESHEETLOCATION", '/gallery/setup/style/style.css', true); // Location of style.css file, relative to document root, with leading slash
 define("FAVICONLOCATION", '/gallery/setup/style/favicon.ico', true); // Location of favicon.ico file, relative to document root, with leading slash
+define("JQUERYLOCATION", '/gallery/setup/style/jquery-1.6.1.min.js', true); // Location of jquery file, relative to document root, with leading slash
+define("TABLEDNDLOCATION", '/gallery/setup/style/jquery.tablednd_0_5.js', true); // Location of tablednd file, relative to document root, with leading slash
 define("TEMPLATESLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/templates/', true); // Location of templates folder, with trailing slash
 define("AJAXLOCATION", $_SERVER['DOCUMENT_ROOT'].'gallery/setup/ajax/', true); // Location of ajax folder, with trailing slash
+define("PREVIEWLOCATION", '/gallery/setup/preview.php',true); // Location of preview.php file, with leading slash
+define("THUMBNAILLOCATION", '/gallery/setup/thumbnail.php',true); // Location of thumbnail.php file, with leading slash
 
 // Amazon AWS settings
 define("AWSPUBLICKEY", 'examplepublickey', true);
