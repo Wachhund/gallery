@@ -16,23 +16,27 @@ if (isset($_GET['imageid'])) {
 			unlink(UPLOADDIR.$row['filename']);
 		}
 		$s3 = new AmazonS3(AWSPUBLICKEY,AWSPRIVATEKEY);
-		$picture = $s3->getObject(BUCKET,$row['filename'],array( 'fileDownload' => UPLOADDIR.$row['filename'] ));
-		//var_dump($picture);
-		$watermark = imagecreatefrompng(WATERMARKLOCATION);
+		$picture = $s3->getObject(BUCKET,"previews/".$row['filename'],array( 'fileDownload' => UPLOADDIR.$row['filename'] ));
+		if !($picture) {
+			$picture = $s3->getObject(BUCKET,$row['filename'],array( 'fileDownload' => UPLOADDIR.$row['filename'] ));
+			$watermark = imagecreatefrompng(WATERMARKLOCATION);
 
-		// Get new dimensions
-		$width = $row['width'];
-		$height = $row['height'];
+			// Get new dimensions
+			$width = $row['width'];
+			$height = $row['height'];
 
-		// Resample
-		$image_p = imagecreatetruecolor(THUMBNAILWIDTH, THUMBNAILHEIGHT);
-		$image = imagecreatefromstring(file_get_contents(UPLOADDIR.$row['filename']));
-		imagecopyresampled($image_p, $image, 0, 0, 0, 0, THUMBNAILWIDTH, THUMBNAILHEIGHT, $width, $height);
-
+			// Resample
+			$image_p = imagecreatetruecolor(THUMBNAILWIDTH, THUMBNAILHEIGHT);
+			$image = imagecreatefromstring(file_get_contents(UPLOADDIR.$row['filename']));
+			imagecopyresampled($image_p, $image, 0, 0, 0, 0, THUMBNAILWIDTH, THUMBNAILHEIGHT, $width, $height);
+			
+			imagedestroy($image);
+		} else {
+			$image_p = imagecreatefromstring(file_get_contents(UPLOADDIR.$row['filename']));
+		}
 		// Output
 		header("Content-type: image/jpeg");
 		imagejpeg($image_p, NULL, 100);
-		imagedestroy($image);
 		imagedestroy($image_p);
 		unlink(UPLOADDIR.$row['filename']);
 	}
