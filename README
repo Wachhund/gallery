@@ -1,4 +1,4 @@
-﻿This is a hand crafted gallery system for the display and sale of images, Relying on the following:
+This is a hand crafted gallery system for the display and sale of images, Relying on the following:
 
 * PHP >= 5.2
 * MySQL
@@ -17,10 +17,15 @@
 These files are primarily on Github for sharing between multiple worksations i use, not for public access to code.
 This is because I'm putting many projects into one, building them all together into my production site. Once finished, I'll split and publicise them.
 That said, you are welcome to grab a copy, play, do whatever. Steal snippets, steal the whole thing. Would be nice if you credit me, anything you wish.
+Issue tracking is at http://www.toastwaffle.com/bugs, use this for reporting bugs, not-quite-bugs, feature requests etc.
+A live version can be found at http://www.toastwaffle.com/gallery.
+The Toastwaffle.mm file is a roadmap for the project, it is a Freemind Mind Map. Freemind is a java based application, google it.
+The Mind Map and Issue Tracker will be used together to plot the course of the project. If you'd like to contribute, they're the first places to look. Email me if you want to join in.
 
 Please Note: No attempt has been made to make this project compatible with Internet Explorer, due to it's failures associated with rendering pages. Most features will not work, but the general look and feel of the pages may not be correct.
 
 Sam Littley
+samuel.littley@toastwaffle.com
 
 CHANGELOG
 
