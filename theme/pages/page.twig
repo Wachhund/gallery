@@ -1,0 +1,25 @@
+{% extends "layouts/default.twig" %}
+
+{% block title %}
+    {% if pages.sitemap %}
+ - Sitemap.
+    {% else %}
+ - {{ pages.page.title }}.
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if pages.sitemap %}
+    <h1>Sitemap</h1>
+    <hr />
+    <ul>
+        {% for page in pages.pagelist %}
+        <li><a href="{{ page.link }}">{{ page.title }}</a></li>
+        {% endfor %}
+    </ul>    
+    {% else %}
+    <h1>{{ pages.page.title }}</h1>
+    <hr />
+    {{ pages.page.content }}
+    {% endif %}
+{% endblock %}

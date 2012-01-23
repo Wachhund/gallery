@@ -1,0 +1,17 @@
+{% extends "layouts/default.twig" %}
+
+{% block title %} - Home.{% endblock %}
+
+{% block content %}
+    {% if homepage.showtextblock %}
+        {{ homepage.textblock }}
+    {% endif %}
+    
+    {% if homepage.showrecentgalleries %}
+        {% include "chunks/recentgalleries.twig" %}
+    {% endif %}
+    
+    {% if homepage.showrecentimages %}
+        {% include "chunks/recentimages.twig" %}
+    {% endif %}
+{% endblock %}
